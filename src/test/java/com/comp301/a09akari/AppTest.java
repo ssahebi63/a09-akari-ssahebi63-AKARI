@@ -118,6 +118,12 @@ public void modelImpl(){
     //test isLit
     plib.addPuzzle(new PuzzleImpl(SamplePuzzles.PUZZLE_04));
     model.setActivePuzzleIndex(2);
+    model.addLamp(0, 0);
+    assertTrue(model.isClueSatisfied(0, 1));
+    model.addLamp(0, 2);
+    assertFalse(model.isClueSatisfied(0, 1));
+    model.removeLamp(0, 0);
+    model.removeLamp(0, 2);
 
     model.addLamp(4, 4);
 
@@ -131,6 +137,15 @@ public void modelImpl(){
     assertFalse(model.isLit(9, 4));
     model.addLamp(9, 7);
     assertTrue(model.isLit(9, 4));
+    model.addLamp(9, 6);
+    assertTrue(model.isLampIllegal(9,6));
+    assertTrue(model.isLampIllegal(9,7));
+    assertFalse(model.isLampIllegal(9,2));
+    model.addLamp(9, 1);
+    assertTrue(model.isLampIllegal(9,2));
+    model.addLamp(1, 1);
+    assertTrue(model.isLampIllegal(1,1));
+    model.removeLamp(9,1);
 
 
 //    for( int c = 0; c < model.getActivePuzzle().getWidth(); c++){
@@ -160,6 +175,10 @@ public void modelImpl(){
    assertEquals(4, model.closestColumnIntruderLocation(0, 0));
     assertEquals(5, model.closestColumnIntruderLocation(4, 1));
     assertEquals(1, model.closestColumnIntruderLocation(2, 1));
+
+
+
+
 
 
  }

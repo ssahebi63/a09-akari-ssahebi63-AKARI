@@ -118,7 +118,14 @@ public class ModelImpl implements Model {
     if (r >= getActivePuzzle().getHeight() || c >= getActivePuzzle().getWidth() || r < 0 || c < 0) {
       throw new IndexOutOfBoundsException();
     }
-    // if ( cell doesnt contain a lamp!)
+
+    if (isLamp(r, c)) {
+      return isIlluminatedFromAbove(r, c)
+          || isIlluminatedFromBelow(r, c)
+          || isIlluminatedFromLeft(r, c)
+          || isIlluminatedFromRight(r, c);
+    }
+
     return false;
   }
 
@@ -152,7 +159,9 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public void resetPuzzle() {}
+  public void resetPuzzle() {
+    lampMap.clear();
+  }
 
   @Override
   public boolean isSolved() {
@@ -164,8 +173,29 @@ public class ModelImpl implements Model {
     if (r >= getActivePuzzle().getHeight() || c >= getActivePuzzle().getWidth() || r < 0 || c < 0) {
       throw new IndexOutOfBoundsException();
     }
-
+    if (getActivePuzzle().getCellType(r, c) != CellType.CLUE) {
+      throw new IllegalArgumentException();
+    }
+    int val =
+        (isLampModded(r, c - 1) ? 1 : 0)
+            + (isLampModded(r, c + 1) ? 1 : 0)
+            + (isLampModded(r + 1, c) ? 1 : 0)
+            + (isLampModded(r - 1, c) ? 1 : 0);
+    switch (getActivePuzzle().getClue(r, c)) {
+      case 0:
+        return val == 0;
+      case 1:
+        return val == 1;
+      case 2:
+        return val == 2;
+      case 3:
+        return val == 3;
+      case 4:
+        return val == 4;
+    }
+    System.out.println("isClueSatisfied failed!");
     return false;
+
   }
 
   @Override
@@ -310,7 +340,7 @@ public class ModelImpl implements Model {
   public boolean isIlluminatedFromRight(int r, int c) {
     // start from isLit() tile
 
-    for (int i = c; i < getActivePuzzle().getWidth(); i++) {
+    for (int i = c + 1; i < getActivePuzzle().getWidth(); i++) {
 
       if (getActivePuzzle().getCellType(r, i) != CellType.CORRIDOR) {
         return false;
@@ -326,7 +356,7 @@ public class ModelImpl implements Model {
   public boolean isIlluminatedFromAbove(int r, int c) {
     // start from isLit() tile
 
-    for (int i = r; i >= 0; i--) {
+    for (int i = r - 1; i >= 0; i--) {
 
       if (getActivePuzzle().getCellType(i, c) != CellType.CORRIDOR) {
         return false;
@@ -342,7 +372,7 @@ public class ModelImpl implements Model {
   public boolean isIlluminatedFromBelow(int r, int c) {
     // start from isLit() tile
 
-    for (int i = r; i < getActivePuzzle().getHeight(); i++) {
+    for (int i = r + 1; i < getActivePuzzle().getHeight(); i++) {
 
       if (getActivePuzzle().getCellType(i, c) != CellType.CORRIDOR) {
         return false;
@@ -358,7 +388,7 @@ public class ModelImpl implements Model {
   public boolean isIlluminatedFromLeft(int r, int c) {
     // start from isLit() tile
 
-    for (int i = c; i >= 0; i--) {
+    for (int i = c - 1; i >= 0; i--) {
 
       if (getActivePuzzle().getCellType(r, i) != CellType.CORRIDOR) {
         return false;
@@ -369,5 +399,13 @@ public class ModelImpl implements Model {
       }
     }
     return false;
+  }
+
+  public boolean isLampModded(int r, int c) {
+    try {
+      return isLamp(r, c);
+    } catch (IndexOutOfBoundsException | IllegalArgumentException oops) {
+      return false;
+    }
   }
 }

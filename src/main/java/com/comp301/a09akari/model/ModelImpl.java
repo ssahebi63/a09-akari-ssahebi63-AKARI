@@ -34,6 +34,7 @@ public class ModelImpl implements Model {
       String rc = r + String.valueOf(c);
       lampMap.put(rc, Boolean.TRUE);
     }
+    notifyObservers();
   }
 
   @Override
@@ -43,6 +44,7 @@ public class ModelImpl implements Model {
       String rc = r + String.valueOf(c);
       lampMap.replace(rc, Boolean.FALSE);
     }
+    notifyObservers();
   }
 
   @Override
@@ -151,6 +153,8 @@ public class ModelImpl implements Model {
     lampMap = lampMapMap.get(index);
 
     li = index;
+
+    notifyObservers();
   }
 
   @Override
@@ -161,11 +165,36 @@ public class ModelImpl implements Model {
   @Override
   public void resetPuzzle() {
     lampMap.clear();
+
+    notifyObservers();
   }
 
   @Override
   public boolean isSolved() {
-    return false;
+    for (int r = 0; r < getActivePuzzle().getHeight(); r++) {
+      for (int c = 0; c < getActivePuzzle().getWidth(); c++) {
+
+        if (getActivePuzzle().getCellType(r, c) == CellType.CORRIDOR) {
+
+          if (isLamp(r, c)) {
+            if (isLampIllegal(r, c)) {
+              return false;
+            }
+          }
+
+          if (!isLit(r, c)) {
+            return false;
+          }
+        }
+
+        if (getActivePuzzle().getCellType(r, c) == CellType.CLUE) {
+          if (!isClueSatisfied(r, c)) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
   }
 
   @Override
@@ -406,6 +435,12 @@ public class ModelImpl implements Model {
       return isLamp(r, c);
     } catch (IndexOutOfBoundsException | IllegalArgumentException oops) {
       return false;
+    }
+  }
+
+  public void notifyObservers() {
+    for (ModelObserver o : observers) {
+      o.update(this);
     }
   }
 }

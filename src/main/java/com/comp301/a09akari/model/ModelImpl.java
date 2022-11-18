@@ -224,7 +224,6 @@ public class ModelImpl implements Model {
     }
     System.out.println("isClueSatisfied failed!");
     return false;
-
   }
 
   @Override

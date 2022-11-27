@@ -4,17 +4,10 @@ import com.comp301.a09akari.controller.ClassicMvcController;
 import com.comp301.a09akari.model.Model;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
-import java.awt.*;
 
 public class MessageView implements FXComponent {
-  private Model model;
-  private ClassicMvcController controller;
+  private final Model model;
+  private final ClassicMvcController controller;
 
   public MessageView(Model model, ClassicMvcController controller) {
     this.model = model;

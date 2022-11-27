@@ -5,7 +5,6 @@ import com.comp301.a09akari.controller.ControllerImpl;
 import com.comp301.a09akari.model.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class AppLauncher extends Application {
@@ -26,29 +25,20 @@ public class AppLauncher extends Application {
 
     Scene scene = new Scene(appView.render());
     // add stylesheet file before setting stage
-   //  scene.getStylesheets().add("main.css");
+    //  scene.getStylesheets().add("main.css");
     stage.setScene(scene);
 
-    //update view with every chane in model
-    model.addObserver((Model m) -> {
-      scene.setRoot(appView.render());
-      stage.sizeToScene();
-    });
+    // update view with every chane in model
+    model.addObserver(
+        (Model m) -> {
+          scene.setRoot(appView.render());
+          stage.sizeToScene();
+        });
 
     stage.setTitle("Akari");
     stage.show();
 
-
-
-
-
-
-
-    //each time model changes refresh view
-
-
-
-
+    // each time model changes refresh view
 
   }
 }

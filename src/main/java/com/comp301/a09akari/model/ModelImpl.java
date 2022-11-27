@@ -7,11 +7,10 @@ import java.util.Map;
 
 public class ModelImpl implements Model {
   private final PuzzleLibrary library;
-  private int li;
   private final Map<Integer, Map<String, Boolean>> lampMapMap;
-  private Map<String, Boolean> lampMap;
-
   private final List<ModelObserver> observers;
+  private int li;
+  private Map<String, Boolean> lampMap;
 
   // an array of size total number of corridors
 
@@ -57,15 +56,15 @@ public class ModelImpl implements Model {
 
     if (rowHasLamp(r)) {
       if (rowHasIntruder(r)) {
-        if ((c > closestRowLampLocation(r, c) && c < closestRowIntruderLocation(r, c))){
-              if(isIlluminatedFromLeft(r, c)){
-                return true;
-              }
+        if ((c > closestRowLampLocation(r, c) && c < closestRowIntruderLocation(r, c))) {
+          if (isIlluminatedFromLeft(r, c)) {
+            return true;
+          }
         }
-            if (c < closestRowLampLocation(r, c) && c > closestRowIntruderLocation(r, c)) {
-              if(isIlluminatedFromRight(r, c)){
-                return true;
-              }
+        if (c < closestRowLampLocation(r, c) && c > closestRowIntruderLocation(r, c)) {
+          if (isIlluminatedFromRight(r, c)) {
+            return true;
+          }
         }
 
         if (closestRowIntruderLocation(r, c) > closestRowLampLocation(r, c)) {
@@ -87,13 +86,13 @@ public class ModelImpl implements Model {
 
     if (columnHasLamp(c)) {
       if (columnHasIntruder(c)) {
-        if (r > closestColumnLampLocation(r, c) && r < closestColumnIntruderLocation(r, c)){
-          if (isIlluminatedFromAbove(r, c)){
+        if (r > closestColumnLampLocation(r, c) && r < closestColumnIntruderLocation(r, c)) {
+          if (isIlluminatedFromAbove(r, c)) {
             return true;
           }
         }
         if (r < closestColumnLampLocation(r, c) && r > closestColumnIntruderLocation(r, c)) {
-          if (isIlluminatedFromBelow(r, c)){
+          if (isIlluminatedFromBelow(r, c)) {
             return true;
           }
         }

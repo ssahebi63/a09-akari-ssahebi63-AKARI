@@ -29,6 +29,8 @@ public class PuzzleView implements FXComponent {
   public Parent render() {
     GridPane puzzleGrid = new GridPane();
 
+    puzzleGrid.getStyleClass().add("puzzle-layout");
+
     mapGrid(puzzleGrid);
     // after I map it out, set the style (add border space and color?)
     return puzzleGrid;
@@ -71,28 +73,25 @@ public class PuzzleView implements FXComponent {
               });
 
         } else if (model.getActivePuzzle().getCellType(r, c) == CellType.CLUE) {
-
+          rect.setFill(Color.BLACK);
+          Label label = new Label();
+          label.getStyleClass().add("clue-layout");
+          layout.getChildren().add(label);
           switch (model.getActivePuzzle().getClue(r, c)) {
             case 0:
-              Label label = new Label("0");
-              // set label fonts and etc
-              layout.getChildren().add(label);
+              label.setText("0");
               break;
             case 1:
-              Label label1 = new Label("1");
-              layout.getChildren().add(label1);
+              label.setText("1");
               break;
             case 2:
-              Label label2 = new Label("2");
-              layout.getChildren().add(label2);
+              label.setText("2");
               break;
             case 3:
-              Label label3 = new Label("3");
-              layout.getChildren().add(label3);
+              label.setText("3");
               break;
             case 4:
-              Label label4 = new Label("4");
-              layout.getChildren().add(label4);
+              label.setText("4");
               break;
           }
 

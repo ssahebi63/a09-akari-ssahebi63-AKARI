@@ -18,6 +18,7 @@ public class AppView implements FXComponent {
   @Override
   public Parent render() {
     VBox layout = new VBox();
+    layout.getStyleClass().add("app-background-layout");
 
     // message view on top if isSolved
     MessageView messageView = new MessageView(model, controller);

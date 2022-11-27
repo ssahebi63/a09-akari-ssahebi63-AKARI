@@ -5,3 +5,34 @@
  * JavaFX start() method:
  *   scene.getStylesheets().add("main.css");
  */
+
+.app-background-layout{
+    -fx-background-color: white;
+}
+
+.puzzle-layout{
+    -fx-alignment: center;
+}
+
+.message-layout{
+    -fx-alignment: center;
+}
+
+.game-incomplete-layout{
+    -fx-font-size: large;
+    -fx-font-family: Arial, "Droid Sans" ;
+    -fx-padding: 20px;
+    -fx-text-fill: red;
+
+}
+
+.game-complete-layout{
+    -fx-text-fill: lime;
+}
+
+.clue-layout{
+    -fx-text-fill: white;
+    -fx-font-size: x-large;
+    -fx-font-family: Arial, "Comic Sans MS";
+    -fx-font-weight: bolder;
+}

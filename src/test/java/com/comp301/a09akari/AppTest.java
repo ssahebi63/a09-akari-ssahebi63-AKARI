@@ -6,13 +6,33 @@ import static junit.framework.TestCase.fail;
 import static org.junit.Assert.*;
 
 import com.comp301.a09akari.model.*;
+import javafx.scene.image.Image;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 
 /** Unit test for simple App. */
 public class AppTest {
+
+
+
+    @Test
+    public void filePathtest(){
+
+        try {
+        FileInputStream input = new FileInputStream("/Users/samansahebi/IdeaProjects/a09-akari-ssahebi63/src/main/resources/light-bulb.png");
+            Image image = new Image(input);
+            System.out.println(image.isError());
+        } catch (FileNotFoundException ignored){
+            System.out.println("poop");
+        }
+
+
+    }
     public static int[][] PUZZLE_06 = {
             {6, 1, 6, 6, 6, 6, 5, 6, 6, 6},
             {6, 6, 6, 6, 6, 6, 6, 6, 6, 5},
@@ -167,14 +187,23 @@ public void modelImpl(){
 
     plib.addPuzzle(new PuzzleImpl(SamplePuzzles.PUZZLE_05));
     model.setActivePuzzleIndex(3);
-    model.addLamp(0,0);
-    assertTrue(model.isIlluminatedFromAbove(3,0));
-    assertFalse(model.isIlluminatedFromAbove(6,0));
-    model.addLamp(0, 3);
-    assertFalse(model.isIlluminatedFromBelow(0, 1));
-   assertEquals(4, model.closestColumnIntruderLocation(0, 0));
-    assertEquals(5, model.closestColumnIntruderLocation(4, 1));
-    assertEquals(1, model.closestColumnIntruderLocation(2, 1));
+    model.addLamp(1,0);
+    Assert.assertFalse(model.isLit(1, 3));
+
+
+
+
+
+
+
+//    model.addLamp(0,0);
+//    assertTrue(model.isIlluminatedFromAbove(3,0));
+//    assertFalse(model.isIlluminatedFromAbove(6,0));
+//    model.addLamp(0, 3);
+//    assertFalse(model.isIlluminatedFromBelow(0, 1));
+//   assertEquals(4, model.closestColumnIntruderLocation(0, 0));
+//    assertEquals(5, model.closestColumnIntruderLocation(4, 1));
+//    assertEquals(1, model.closestColumnIntruderLocation(2, 1));
 
 
 

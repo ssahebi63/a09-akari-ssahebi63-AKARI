@@ -5,6 +5,7 @@ import com.comp301.a09akari.model.Model;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class MessageView implements FXComponent {
   private final Model model;
@@ -17,18 +18,23 @@ public class MessageView implements FXComponent {
 
   @Override
   public Parent render() {
+    Label label = new Label("Game Incomplete");
+    Label puzzleNum = new Label("Puzzle " + (model.getActivePuzzleIndex() + 1) + " Of " + 5);
+    // style
+    StackPane labelHolder1 = new StackPane(label);
+    StackPane labelHolder2 = new StackPane(puzzleNum);
+    VBox vbox = new VBox(labelHolder1);
+    vbox.getChildren().add(labelHolder2);
 
-    Label label  = new Label("Game Incomplete");
-    StackPane layout = new StackPane(label);
-    layout.getStyleClass().add("message-layout");
+    labelHolder1.getStyleClass().add("message-layout");
+    labelHolder2.getStyleClass().add("message-layout");
     label.getStyleClass().add("game-incomplete-layout");
+    puzzleNum.getStyleClass().add("puzzle-number");
     if (model.isSolved()) {
       // style the label here later
       label.setText("Congratulations! You Completed The Puzzle.");
       label.getStyleClass().add("game-complete-layout");
     }
-    return layout;
-
-
+    return vbox;
   }
 }

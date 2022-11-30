@@ -19,6 +19,7 @@ public class ControlView implements FXComponent {
   @Override
   public Parent render() {
     HBox layout = new HBox();
+    layout.getStyleClass().add("control-layout");
 
     // set layout style here
 

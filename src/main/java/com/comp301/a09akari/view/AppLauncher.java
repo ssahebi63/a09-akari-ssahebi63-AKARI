@@ -25,7 +25,7 @@ public class AppLauncher extends Application {
 
     Scene scene = new Scene(appView.render());
     // add stylesheet file before setting stage (to remember)
-      scene.getStylesheets().add("main.css");
+    scene.getStylesheets().add("main.css");
     stage.setScene(scene);
 
     // update view with every chane in model

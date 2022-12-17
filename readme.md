@@ -1,2 +1,2 @@
-This project uses a Classic MVC interface.
+This is my implementation of the Akari game. 
 Navigate to Maven -> Plugins -> JavaFX to run the project
